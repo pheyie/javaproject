@@ -14,34 +14,34 @@ pipeline{
             }
         }
 
-        // // build docker image
-        // stage('BuildDockerImage'){
-        //     steps{
-        //     withDockerRegistry([credentialsId: "dockerlogin", url:""]){
-        //         script{
-        //            app =  docker.build("tech365app")
+        // build docker image
+        stage('Build Docker Image'){
+            steps{
+            withDockerRegistry([credentialsId: "dockerlogin", url:""]){
+                script{
+                   app =  docker.build("myjavaapp:$(env.BUILD_NUMBER)")
                  
-        //         }
-        //     }
-        //     }
-        // }
+                }
+            }
+            }
+        }
 
-        // // push docker image
-        // stage('PushDockerImage'){
-        //     steps{
-        //     script{
+        // push docker image
+        stage('Push Docker Image to amazon ecr'){
+            steps{
+            script{
 
-        //         // docker.withRegistry('https://registry.hub.docker.com', 'dockerlogin'){
+                // docker.withRegistry('https://registry.hub.docker.com', 'dockerlogin'){
 
 
-        //         docker.withRegistry('https://222634367210.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials'){
+                docker.withRegistry('https://949335805735.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials'){
   
-        //             app.push("latest")
-        //         }
-        //     }
-        // }
+                    app.push("1.0.1")
+                }
+            }
+        }
 
-        // }
+        }
 
         // stage('kubernetes deployment'){
         //     steps{

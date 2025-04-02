@@ -19,7 +19,7 @@ pipeline{
             steps{
             withDockerRegistry([credentialsId: "dockerlogin", url:""]){
                 script{
-                   app =  docker.build("myjavaapp:$(env.BUILD_NUMBER)")
+                   app =  docker.build('myjavaapp:$(env.BUILD_NUMBER)')
                  
                 }
             }
